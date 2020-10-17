@@ -32,9 +32,19 @@ function writePassword() {
 
   } while (true && length_prompt < 3)
 
+  // Users must confirm if we want to use an upper case letters in the password.
+  
+    const password_uppercase_reponse = confirm("Do you want to use uppercase, e.g., 'A' letters in your password? Click cancel if not, and continue.");
+    // console.log(password_uppercase_reponse);
 
-   // 
+  // Users must confirm if we want to use an lower case letters in the password.
+  
+    const password_lowercase_response = confirm("Do you want to use lowercase, e.g., 'a' letters in your password? Click cancel if not, and continue.");
+   // console.log(password_lowercase_response);
 
+  // Testting
+
+ 
 
 
 
