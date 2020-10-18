@@ -7,122 +7,122 @@ var generateBtn = document.querySelector("#generate");
 
 function writePassword() {
 
-  // Users will be Prompted to select password length, at least eight characters, and no more than 128 characters.
+  // Prompt the user for the Password Length
 
-  var length_prompt = 1; // conter to define user attempts
-  var password_length_response = Number(prompt("How many characters do you want to use for the length of password; Password must have at least 8 characters but no more than 128 characters."));
-
-  do {
-
-
-
+  for (var attempts = 1; attempts <= 3; attempts++) {
+    var password_length_response = prompt('How many characters do you want to use for the length of password; Password must have at least 8 characters but no more than 128 characters.', '8')
     if (password_length_response < 8 || password_length_response > 128 || isNaN(password_length_response)) {
 
-      // Criteria not meet; Alert the user that must enter a number between 8 and 128. Tell the user only have two tries.
-      alert("Please be sure the following criteria are met. Must be a number between 8 and 128.  Remaining attempts : " + length_prompt++ + " of 2");
+      alert('Must be a number between 8 and 128. You have, ' + (3 - attempts) + ' remaining attempts.');
 
-    } else {
+      if (attempts === 3) {
+        return;
+      }
+
+    } else
 
       break;
 
-    }
-
-    // Display message when user reach more than two tries.
-
-    if (length_prompt > 2) { alert("max try reaced; try next time") };
-
-  } while (true && length_prompt < 3)
+  }
 
   console.log(password_length_response);
+  console.log('good; move forward');
 
-  // Users must confirm if we want to use an upper case letters in the password.
 
-  var password_uppercase_reponse = confirm("Do you want to use uppercase, e.g., 'A' letters in your password? Click cancel if not, and continue.");
+  // Addtitional criteria to be used in the password
 
-  if (password_uppercase_reponse) {
+  var character_type_selection = 0;
 
-    password_uppercase_reponse = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  do {
 
-  } else {
+    // Display Message to the user is no characted type is selected 
 
-    password_uppercase_reponse = "";
+    if (character_type_selection > 0) {
+      alert('You must select at least one character type');
+    }
 
-  }
+    // Users must confirm if we want to use an upper case letters in the password.
 
-  console.log(password_uppercase_reponse);
+    var password_uppercase_reponse = confirm("Do you want to use uppercase, e.g., 'A' letters in your password? Click cancel if not, and continue.");
 
-  // Users must confirm if we want to use an lower case letters in the password.
+    if (password_uppercase_reponse) {
 
-  var password_lowercase_response = confirm("Do you want to use lowercase, e.g., 'a' letters in your password? Click cancel if not, and continue.");
+      password_uppercase_reponse = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-  if (password_lowercase_response) {
+    }
 
-    password_lowercase_response = "abcdefghijklmnopqrstuvwxyz";
+    console.log(password_uppercase_reponse);
 
-  } else {
+    // Users must confirm if we want to use an lower case letters in the password.
 
-    password_lowercase_response = "";
+    var password_lowercase_response = confirm("Do you want to use lowercase, e.g., 'a' letters in your password? Click cancel if not, and continue.");
 
-  }
-  console.log(password_lowercase_response);
-  // Users must comfirm if we wnat to use nnumber as part of the password
+    if (password_lowercase_response) {
 
-  var password_numbers_response = confirm("Do you want to use number as part of the password, e.g., '123'?  Click cancel if not, and continue.");
+      password_lowercase_response = "abcdefghijklmnopqrstuvwxyz";
 
-  if (password_numbers_response) {
+    }
 
-    password_numbers_response = "12345678";
+    console.log(password_lowercase_response);
 
-  } else {
+    // Users must comfirm if we wnat to use nnumber as part of the password
 
-    password_numbers_response = "";
+    var password_numbers_response = confirm("Do you want to use number as part of the password, e.g., '123'?  Click cancel if not, and continue.");
 
-  }
+    if (password_numbers_response) {
 
-  console.log(password_numbers_response);7
+      password_numbers_response = "12345678";
 
-  // Users must confirm if we want to use special characters as part of the password
+    }
 
-  var password_special_characters_response = confirm("Do you want to use special characters as part of the password, e.g., '#@$%'?  Click cancel if not, and continue.");
+    console.log(password_numbers_response);
 
-  if (password_special_characters_response) {
+    // Users must confirm if we want to use special characters as part of the password
 
-    password_special_characters_response = "!@#$%^&*()";
+    var password_special_characters_response = confirm("Do you want to use special characters as part of the password, e.g., '#@$%'?  Click cancel if not, and continue.");
 
-  } else {
+    if (password_special_characters_response) {
 
-    password_special_characters_response = "";
+      password_special_characters_response = "!@#$%^&*()";
 
-  }
+    }
 
-  console.log(password_special_characters_response);
+    character_type_selection++;
+    console.log(password_special_characters_response);
 
+  } while (password_uppercase_reponse === false && password_lowercase_response === false && password_numbers_response === false && password_special_characters_response === false);
+
+  console.log('moving foward');
+  
   // User Criteria
 
   var password_criteria = password_uppercase_reponse + password_lowercase_response + password_numbers_response + password_special_characters_response;
-
+  
   // Generate the password based on user criteria
   function generatePassword() {
-
+  
     var the_password = '';
     for (i = 1; i <= password_length_response; i++) {
-
+  
       var character = Math.floor(Math.random() * password_criteria.length + 1);
-
+  
       the_password += password_criteria.charAt(character)
-
+  
     }
     return the_password;
   }
-
+  
   // Call funtion to generate the password based on user criteria
-  var password = generatePassword()
 
+  var password = generatePassword()
+  
   // Write Password to the UI
+
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 
 }
 
 // Add event listener to generate button
+
 generateBtn.addEventListener("click", writePassword);
