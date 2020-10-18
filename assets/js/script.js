@@ -104,7 +104,7 @@ function writePassword() {
     var the_password = '';
     for (i = 1; i <= password_length_response; i++) {
   
-      var character = Math.floor(Math.random() * password_criteria.length + 1);
+      var character = Math.floor(Math.random() * password_criteria.length);
   
       the_password += password_criteria.charAt(character)
   
